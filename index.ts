@@ -2,6 +2,17 @@ import express from "express";
 const app = express();
 import webPush from "web-push";
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req: any, res: any) => {
+    try {
+      res.send({ name: "hoge" });
+    } catch (error) {
+      res.sendStatus(500);
+    }
+});
+
 // VAPID の生成
 const vapid = webPush.generateVAPIDKeys();
 
@@ -40,3 +51,9 @@ app.post("/pushNotification", (req, res) => {
         options
     )
 })
+
+app.listen({ port: 3000 }, () => {
+    console.log(`Server ready at http://localhost:3000`);
+});
+
+export default app;
