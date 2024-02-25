@@ -1,9 +1,12 @@
 import express from "express";
-const app = express();
 import webPush from "web-push";
+import cors from "cors";
+
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 app.get('/', (req: any, res: any) => {
     try {
