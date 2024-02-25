@@ -38,7 +38,8 @@ app.post("/register", (req, res) => {
 app.post("/pushNotification", (req, res) => {
     // Push通知送信処理
     const subscription = req.body.subscription;
-    const payload = req.body.payload;
+
+    const payload = "こんにちは！";
 
     const options = {
         vapidDetails: {
@@ -52,7 +53,12 @@ app.post("/pushNotification", (req, res) => {
         subscription,
         payload,
         options
-    )
+    ).then(() => {
+        res.sendStatus(201);
+    }).catch((error) => {
+        console.log("error", error);
+        res.sendStatus(500);
+    })
 })
 
 app.listen({ port: 3000 }, () => {
